@@ -1,3 +1,4 @@
+import java.util.*;
 class MyLinkedList <E> {
   class Node{
  private E data;
@@ -77,12 +78,12 @@ private int length;
  }
 
  public void add(int index, E value){
-    if (index < 0 || index > size()){
+    if(index < 0 || index > size()){
        throw new IndexOutOfBoundsException( index + " is out of bounds");
      }
-    if (index == size()){
+    if(index == size()){
       add(value);
-    }else if (index == 0){
+    }else if(index == 0){
       Node temp = new Node(value, start, null);
       start.setPrev(temp);
       start = temp;
@@ -98,8 +99,8 @@ private int length;
   private Node getNthNode(int index){
     int count = 0;
     Node temp = start;
-    while (temp != null){
-      if (count == index){
+    while(temp != null){
+      if(count == index){
         return temp;
       }
       count++;
@@ -107,6 +108,31 @@ private int length;
     }
     return null;
   }
+
+  public void extend(MyLinkedList<E> other){
+      if(other.size() > 0){
+        length += other.size();
+        end.setNext(other.start);
+        other.start.setPrev(end);
+        end = other.end;
+        other.length = 0;
+        other.start = null;
+        other.end = null;
+      }
+  }
+
+  public E removeFront(){
+  if (size() == 0) throw new NoSuchElementException();
+  E temp = start.getData();
+  if (size() == 1){
+    clear();
+    return temp;
+  }
+  start = start.next();
+  start.setPrev(null);
+  length--;
+  return temp;
+}
 
 
 }
