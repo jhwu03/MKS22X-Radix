@@ -76,4 +76,37 @@ private int length;
    return true;
  }
 
+ public void add(int index, E value){
+    if (index < 0 || index > size()){
+       throw new IndexOutOfBoundsException( index + " is out of bounds");
+     }
+    if (index == size()){
+      add(value);
+    }else if (index == 0){
+      Node temp = new Node(value, start, null);
+      start.setPrev(temp);
+      start = temp;
+      length++;
+    }else{
+      Node temp = new Node(value, getNthNode(index), getNthNode(index - 1));
+      getNthNode(index).setPrev(temp);
+      getNthNode(index - 1).setNext(temp);
+      length++;
+    }
+  }
+
+  private Node getNthNode(int index){
+    int count = 0;
+    Node temp = start;
+    while (temp != null){
+      if (count == index){
+        return temp;
+      }
+      count++;
+      temp = temp.next();
+    }
+    return null;
+  }
+
+
 }
