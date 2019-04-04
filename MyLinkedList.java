@@ -110,16 +110,20 @@ private int length;
   }
 
   public void extend(MyLinkedList<E> other){
-      if(other.size() > 0){
-        length += other.size();
-        end.setNext(other.start);
-        other.start.setPrev(end);
-        end = other.end;
-        other.length = 0;
-        other.start = null;
-        other.end = null;
+    if (size() == 0){
+            start = other.start;
+            end = other.end;
+            length += other.size();
+            other.clear();
+          }
+          else if (other.size() > 0){
+            length += other.size();
+            end.setNext(other.start);
+            other.start.setPrev(end);
+            end = other.end;
+            other.clear();
+        }
       }
-  }
 
   public E removeFront(){
   if (size() == 0) throw new NoSuchElementException();
