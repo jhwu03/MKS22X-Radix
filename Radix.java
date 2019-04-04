@@ -8,7 +8,7 @@ public class Radix{
         buckets[i] = new MyLinkedList<Integer>();
       }
     }
-    for( int i = 1; i <= getLength(data); i++){
+    for( int i = 1; i <= max(data); i++){
       for(int j = 0; j < data.length ; j++){
         int index = getDigit(data[j], i);
           if(data[j] >= 0){
@@ -17,7 +17,17 @@ public class Radix{
             buckets[9 - index].add(data[j]);
           }
       }
+    int counter = 0;
+    for(int j = 0; j < 20; j++){
+      int s = buckets[j].size();
+      for(int k = 1; k <= s ; k++){
+        int temp = buckets[j].removeFront();
+        data[counter] = temp;
+        counter++;
+      }
+    }
   }
+}
 
   public static int max(int[] data){
     int m = Math.abs(data[0]);
