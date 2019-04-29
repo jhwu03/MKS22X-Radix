@@ -35,23 +35,39 @@ class MyLinkedList <E> {
 private int length;
   private Node start,end;
 
-  public MyLinkedList(){}
+  public MyLinkedList(){
+    start = null;
+    end = null;
+    length = 0;
+  }
 
   public int size(){
     return length;
   }
 
-  public String toString(){
-    String ans = "[";
-    Node temp = start;
-    while (temp != null){
-      ans += temp;
-      temp = temp.next();
-      if (temp != null) ans += ", ";
+  public String toString() {
+    if( length == 0)
+    return "[]";
+    String output = "[";
+    Node n = start;
+    while(n != end) {
+      output += n.getData() +", ";
+      n = n.next();
     }
-    ans += "]";
-    return ans;
+    return output + n.getData() + "]";
   }
+
+  public String toStringReverse() {
+   if (length == 0)
+   return "[]";
+   String output = "[";
+   Node n = end;
+   while( n != start ) {
+     output += n.getData() + ", ";
+     n = n.prev();
+   }
+   return output + n.getData() + "]";
+ }
 
   public void clear(){
     length = 0;
@@ -61,8 +77,9 @@ private int length;
 
   public boolean add(E value){
    if (start == null){
-     start = new Node(value, null, null);
-     end = start;
+     Node n = new Node(value, null, null);
+     start = n;
+     end = n;
    }
    else if (end == start){
      end = new Node(value, null, start);
@@ -126,16 +143,16 @@ private int length;
       }
 
   public E removeFront(){
-  if (size() == 0) throw new NoSuchElementException();
-  E temp = start.getData();
-  if (size() == 1){
-    clear();
+    if (size() == 0) throw new NoSuchElementException();
+      E temp = start.getData();
+      if (size() == 1){
+        clear();
+        return temp;
+      }
+    start = start.next();
+    start.setPrev(null);
+    length--;
     return temp;
-  }
-  start = start.next();
-  start.setPrev(null);
-  length--;
-  return temp;
 }
 
 
